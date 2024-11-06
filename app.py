@@ -5,18 +5,14 @@ import streamlit as st
 # Mengatur konfigurasi halaman
 st.set_page_config(page_title="Cek Followers Instagram", layout="centered")
 
-# CSS khusus untuk menyembunyikan ikon Share, bintang, dan GitHub
-hide_specific_icons = """
-    <style>
-    [title="View source"], /* Ikon GitHub */
-    [title="Share this app"], /* Ikon Share */
-    [title="Star"] { /* Ikon bintang */
-        display: none !important;
-    }
-    footer {visibility: hidden;}
-    </style>
-    """
-st.markdown(hide_specific_icons, unsafe_allow_html=True)
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # Fungsi untuk menemukan akun yang tidak follow back
 def find_not_following_back(followers_data, following_data):
