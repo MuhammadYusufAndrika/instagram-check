@@ -35,6 +35,15 @@ st.caption('Copyright by @yusufandrika')
 st.text('Hello, keep in mind that the folder entered must not be wrong')
 st.text('pay attention to the name of the upload column for each file')
 st.text('do not get confused. Enjoyyy!!!')
+
+st.markdown("""
+    <h4>Video Tutorial:</h4>
+    <a href="https://vt.tiktok.com/ZSjkxHcns/" target="_blank">
+        <button style="background-color: #ff2d55; color: white; padding: 10px; border: none; cursor: pointer;">
+            Tonton di TikTok
+        </button>
+    </a>
+""", unsafe_allow_html=True)
 # Upload file JSON untuk followers dan following
 followers_file = st.file_uploader("Upload File Followers (JSON)", type="json")
 following_file = st.file_uploader("Upload File Following (JSON)", type="json")
