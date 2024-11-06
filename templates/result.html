@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hasil Cek Followers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h2>Akun yang Tidak Follow-back</h2>
+        </div>
+        <div class="card-body">
+          {% if not_following_back %}
+          <ul class="list-group">
+            {% for user in not_following_back %}
+            <li class="list-group-item">
+              <a href="https://instagram.com/{{ user }}" target="_blank">{{ user }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="text-center">Semua akun sudah mengikuti balik.</p>
+          {% endif %}
+        </div>
+        <div class="card-footer text-center">
+          <a href="/" class="btn btn-secondary">Kembali</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
