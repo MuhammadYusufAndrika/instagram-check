@@ -7,7 +7,7 @@ st.set_page_config(page_title="Cek Followers Instagram", layout="centered")
 
 hide_menu_style = """
         <style>
-        #MainMenu {visibility: hidden;}
+        #
         footer {visibility: hidden;}
         header {visibility: hidden;}
         </style>
