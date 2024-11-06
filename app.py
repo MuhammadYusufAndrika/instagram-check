@@ -1,7 +1,22 @@
 import json
 import streamlit as st
 
-# Fungsi untuk menemukan akun yang tidak follow-back
+
+# Mengatur konfigurasi halaman
+st.set_page_config(page_title="Cek Followers Instagram", layout="centered")
+
+# Menyembunyikan logo GitHub, Share
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    [title="View source"] {display: none;}
+    [data-testid="stSidebar"] header {visibility: visible;}
+    footer {visibility: hidden;}
+    </style>
+    """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# Fungsi untuk menemukan akun yang tidak follow back
 def find_not_following_back(followers_data, following_data):
     followers = [j["value"] for i in followers_data for j in i["string_list_data"]]
     following = [j["value"] for i in following_data['relationships_following'] for j in i["string_list_data"]]
