@@ -8,8 +8,20 @@ def find_not_following_back(followers_data, following_data):
     return [user for user in following if user not in followers]
 
 # Judul aplikasi
-st.title("Cek Followers Instagram yang Tidak Follow-back")
+# st.markdown(
+#     """
+#     # My first app
+#     Aplikasi ini adal
+#     """
+# )
 
+
+st.title("Cek Followers Instagram")
+st.caption('Copyright by @yusufandrika')
+
+st.text('Hello, keep in mind that the folder entered must not be wrong')
+st.text('pay attention to the name of the upload column for each file')
+st.text('do not get confused. Enjoyyy!!!')
 # Upload file JSON untuk followers dan following
 followers_file = st.file_uploader("Upload File Followers (JSON)", type="json")
 following_file = st.file_uploader("Upload File Following (JSON)", type="json")
@@ -23,7 +35,7 @@ if followers_file and following_file:
     not_following_back = find_not_following_back(followers_data, following_data)
     
     # Tampilkan hasil dalam format daftar
-    st.subheader("Akun yang Tidak Follow-back:")
+    st.subheader("Akun Not Follow-back:")
     if not_following_back:
         for user in not_following_back:
             st.write(f"- [Instagram: {user}](https://instagram.com/{user})", unsafe_allow_html=True)
