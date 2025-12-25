@@ -16,8 +16,19 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # Fungsi untuk menemukan akun yang tidak follow back
 def find_not_following_back(followers_data, following_data):
-    followers = [j["value"] for i in followers_data for j in i["string_list_data"]]
-    following = [j["value"] for i in following_data['relationships_following'] for j in i["string_list_data"]]
+    # Extract followers - gunakan field 'value' yang sudah berisi username
+    followers = [j["value"] for i in followers_data if "string_list_data" in i for j in i["string_list_data"] if "value" in j]
+    
+    # Extract following - ambil dari 'href' dan bersihkan dari '_u/'
+    following = []
+    for i in following_data['relationships_following']:
+        if "string_list_data" in i:
+            for j in i["string_list_data"]:
+                if "href" in j:
+                    # Extract username dari URL dan hapus '_u/' jika ada
+                    username = j["href"].replace("https://www.instagram.com/_u/", "").replace("https://www.instagram.com/", "")
+                    following.append(username)
+    
     return [user for user in following if user not in followers]
 
 # Judul aplikasi
