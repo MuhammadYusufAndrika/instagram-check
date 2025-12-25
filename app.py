@@ -31,6 +31,23 @@ def find_not_following_back(followers_data, following_data):
     
     return [user for user in following if user not in followers]
 
+# Fungsi untuk menemukan akun yang tidak kita follow balik
+def find_not_following_them_back(followers_data, following_data):
+    # Extract followers - gunakan field 'value' yang sudah berisi username
+    followers = [j["value"] for i in followers_data if "string_list_data" in i for j in i["string_list_data"] if "value" in j]
+    
+    # Extract following - ambil dari 'href' dan bersihkan dari '_u/'
+    following = []
+    for i in following_data['relationships_following']:
+        if "string_list_data" in i:
+            for j in i["string_list_data"]:
+                if "href" in j:
+                    # Extract username dari URL dan hapus '_u/' jika ada
+                    username = j["href"].replace("https://www.instagram.com/_u/", "").replace("https://www.instagram.com/", "")
+                    following.append(username)
+    
+    return [user for user in followers if user not in following]
+
 # Judul aplikasi
 # st.markdown(
 #     """
@@ -43,9 +60,9 @@ def find_not_following_back(followers_data, following_data):
 st.title("Cek Followers Instagram")
 st.caption('Copyright by @yusufandrika')
 
-st.text('Hello, keep in mind that the folder entered must not be wrong')
-st.text('pay attention to the name of the upload column for each file')
-st.text('do not get confused. Enjoyyy!!!')
+st.text('Hello! Please make sure the selected folder is correct.')
+st.text('Pay close attention to the upload column name for each file and avoid mixing them up.')
+st.text('Enjoy! 😊')
 
 st.markdown("""
     <h4>Video Tutorial:</h4>
@@ -67,10 +84,29 @@ if followers_file and following_file:
     # Dapatkan daftar akun yang tidak follow-back
     not_following_back = find_not_following_back(followers_data, following_data)
     
+    # Dapatkan daftar akun yang tidak kita follow balik
+    not_following_them_back = find_not_following_them_back(followers_data, following_data)
+    
     # Tampilkan hasil dalam format daftar
-    st.subheader("Akun Not Follow-back:")
-    if not_following_back:
-        for user in not_following_back:
-            st.write(f"- [Instagram: {user}](https://instagram.com/{user})", unsafe_allow_html=True)
-    else:
-        st.write("Semua akun sudah mengikuti balik.")
+    st.subheader("📊 Hasil Analisis:")
+    
+    # Tab untuk memisahkan kedua kategori
+    tab1, tab2 = st.tabs(["❌ Tidak Follow Back Kita", "✅ Tidak Kita Follow Back"])
+    
+    with tab1:
+        st.markdown("**Akun yang kita follow tapi tidak follow back:**")
+        if not_following_back:
+            st.info(f"Ditemukan {len(not_following_back)} akun")
+            for user in not_following_back:
+                st.write(f"- [Instagram: {user}](https://instagram.com/{user})", unsafe_allow_html=True)
+        else:
+            st.success("🎉 Semua akun yang kita follow sudah follow back!")
+    
+    with tab2:
+        st.markdown("**Akun yang follow kita tapi tidak kita follow back:**")
+        if not_following_them_back:
+            st.info(f"Ditemukan {len(not_following_them_back)} akun")
+            for user in not_following_them_back:
+                st.write(f"- [Instagram: {user}](https://instagram.com/{user})", unsafe_allow_html=True)
+        else:
+            st.success("🎉 Kita sudah follow back semua followers!")
